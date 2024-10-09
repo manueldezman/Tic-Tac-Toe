@@ -89,7 +89,7 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
         
 
         let winner = checkWinner();
-        console.log(winner);
+
         if (winner == players[0].token) {
             console.log(`player ${winner} wins`);
             return;
@@ -218,9 +218,26 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
 
 function ScreenController() {
-    const game = GameController();
+    
+    const startBtn = document.querySelector(".startBtn");
+    const playerOne = document.querySelector("#playerOneName");
+    const playerTwo = document.querySelector("#playerTwoName");
+    let playerOneName;
+    let playerTwoName;
+    let game;
+
+    const startGame = () => {
+        playerOneName = playerOne.value;
+        console.log(playerOne.value);
+        playerTwoName = playerTwo.value;
+
+        game = GameController(playerOneName, playerTwoName);
+
+        updateScreen();
+    }
     const playerTurnDiv = document.querySelector(".turn");
     const boardDiv = document.querySelector(".board");
+    
 
 
     const updateScreen = () => {
@@ -259,9 +276,8 @@ function ScreenController() {
     }
 
     boardDiv.addEventListener("click", clickHandlerBoard);
-
-
-    updateScreen();
+    
+    startBtn.addEventListener("click", startGame);
 
 }
 

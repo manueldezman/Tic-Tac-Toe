@@ -8,9 +8,29 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <div class="turn"></div>
-        <div class="board"></div>
-    </div>
+    <section class="startpage">
+        <h1 class="header">TIC TAC TOE</h1>
+        <div class="form">
+            <div class="name">
+                <input type="text" name="playerOneName" id="playerOneName">
+                <label for="playerOneName">Enter Player X's Name</label>
+            </div>
+            <div class="versus">VS</div>
+            <div class="name">
+                <input type="text" name="playerTwoName" id="playerTwoName">
+                <label for="playerTwoName">Enter Player O's Name</label>
+            </div>
+            <button class="startBtn">Start Game</button>
+        </div>
+    </section>
+    <section class="gamepage">
+
+        <div class="scoreboard"></div>
+        <div class="container">
+            <div class="roundResult"></div>
+            <div class="turn"></div>
+            <div class="board"></div>
+        </div>
+    </section>
 </body>
 </html>
