@@ -1,0 +1,22 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-size: 62.5%;
+}
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 40rem;
+    height: 40rem;
+    gap: .2rem;
+    border: .5rem solid black;
+}
+
+.cell {
+    border: .1rem solid black;
+    font-size: 10rem;
+}
