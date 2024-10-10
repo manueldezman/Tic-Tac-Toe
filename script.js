@@ -1,20 +1,24 @@
-function Gameboard() {
+ function Gameboard() {
     const board = [];
     const row = 3;
     const column = 3;
 
 
-    for (let i = 0; i < row; i++) {
-        board[i] = [];
-
-        for (let j = 0; j < column; j++) {
-            board[i].push(Cell());
-        }
-    }
 
     const getBoard = () => board;
 
+    const refreshBoard = () => {
+        
+        for (let i = 0; i < row; i++) {
+            board[i] = [];
+    
+            for (let j = 0; j < column; j++) {
+                board[i].push(Cell());
+            }
+        }
+    }
 
+    refreshBoard();
 
     const dropToken = (row, column, player) => {
         if (board[row][column].getValue() === "") {
@@ -29,7 +33,7 @@ function Gameboard() {
         console.log(boardWithCellValues);
       };
 
-    return {getBoard, dropToken, printBoard};
+    return {getBoard, dropToken, printBoard, refreshBoard};
 
 }
 
@@ -51,6 +55,8 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
     console.log(Gameboard());
     const gameBoard = Gameboard();
     const board = gameBoard.getBoard();
+    let playerOneScore = 0;
+    let playerTwoScore = 0;
 
 
     const players = [
@@ -69,6 +75,10 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
         activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0];
 
     };
+
+    const refreshGame = () => {
+        gameBoard.refreshBoard();
+    }
 
     const getActivePlayer = () => activePlayer;
 
@@ -91,20 +101,20 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
         let winner = checkWinner();
 
         if (winner == players[0].token) {
-            console.log(`player ${winner} wins`);
-            return;
+            playerOneScore++;
+            return `${players[0].name} wins`;
         }
         else if (winner == players[1].token) {
-            console.log(`player ${winner} wins`);
-            return;
+            playerTwoScore++;
+            return `${players[1].name} wins`;
         }
 
         const cells = [board[0][0], board[0][2], board[0][2], board[1][0], board[1][1], board[1][2], board[2][0], board[2][1], board[2][2]];
         let emptyCells = cells.filter((cell) => cell.getValue() === "");
 
         if (emptyCells.length === 0) {
-            console.log("it ends in a tie");
-            return;
+           
+            return "it ends in a tie";;
         }
 
         switchPlayerTurn();
@@ -213,7 +223,7 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
     
 
-    return {playRound, getActivePlayer, checkWinner, board, players};
+    return {playRound, getActivePlayer, checkWinner, board, players, playerOneScore, playerTwoScore, refreshGame};
 }
 
 
@@ -235,12 +245,19 @@ function ScreenController() {
 
         updateScreen();
     }
+
     const playerTurnDiv = document.querySelector(".turn");
     const boardDiv = document.querySelector(".board");
-    
+    const result = document.querySelector(".roundResult");
+    const continueBtn = document.querySelector(".continue");
 
+    const restartGame = () => {
+        game.refreshGame();
+        updateScreen();
+    }
 
-    const updateScreen = () => {
+    const updateScreen = () => { 
+
         boardDiv.textContent = "";
 
 
@@ -268,17 +285,26 @@ function ScreenController() {
 
     function clickHandlerBoard(e) {
 
+
         const selectedRow = e.target.dataset.row;
         const selectedColumn = e.target.dataset.column;
 
-        game.playRound(selectedRow, selectedColumn);
+        const round = game.playRound(selectedRow, selectedColumn);
+
+        if (round !== undefined) {
+            result.textContent = round;
+        }
+    
         updateScreen();
     }
+
+
 
     boardDiv.addEventListener("click", clickHandlerBoard);
     
     startBtn.addEventListener("click", startGame);
 
+    continueBtn.addEventListener("click", restartGame);
 }
 
 ScreenController();
