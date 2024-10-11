@@ -76,6 +76,9 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
     };
 
+    const getPlayerOneScore = () => playerOneScore;
+    const getPlayerTwoScore = () => playerTwoScore;
+
     const refreshGame = () => {
         gameBoard.refreshBoard();
     }
@@ -102,10 +105,14 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
         if (winner == players[0].token) {
             playerOneScore++;
+            console.log(playerOneScore);
+            console.log(playerTwoScore);
             return `${players[0].name} wins`;
         }
         else if (winner == players[1].token) {
             playerTwoScore++;
+            console.log(playerOneScore);
+            console.log(playerTwoScore);
             return `${players[1].name} wins`;
         }
 
@@ -113,7 +120,8 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
         let emptyCells = cells.filter((cell) => cell.getValue() === "");
 
         if (emptyCells.length === 0) {
-           
+            console.log(playerOneScore);
+            console.log(playerTwoScore);
             return "it ends in a tie";;
         }
 
@@ -223,7 +231,7 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
     
 
-    return {playRound, getActivePlayer, checkWinner, board, players, playerOneScore, playerTwoScore, refreshGame};
+    return {playRound, getActivePlayer, checkWinner, board, players, getPlayerOneScore, getPlayerTwoScore, refreshGame};
 }
 
 
@@ -232,6 +240,10 @@ function ScreenController() {
     const startBtn = document.querySelector(".startBtn");
     const playerOne = document.querySelector("#playerOneName");
     const playerTwo = document.querySelector("#playerTwoName");
+    const playerOneNameCard = document.querySelector(".playerOneNameCard");
+    const playerTwoNameCard = document.querySelector(".playerTwoNameCard");
+    const playerOneScoreCard = document.querySelector(".playerOneScore");
+    const playerTwoScoreCard = document.querySelector(".playerTwoScore");
     let playerOneName;
     let playerTwoName;
     let game;
@@ -257,6 +269,11 @@ function ScreenController() {
     }
 
     const updateScreen = () => { 
+        
+        playerOneNameCard.textContent = playerOneName;
+        playerOneScoreCard.textContent = game.getPlayerOneScore();
+        playerTwoNameCard.textContent = playerTwoName;
+        playerTwoScoreCard.textContent = game.getPlayerTwoScore();
 
         boardDiv.textContent = "";
 
