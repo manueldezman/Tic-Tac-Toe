@@ -236,7 +236,8 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
 
 function ScreenController() {
-    
+    const startPage = document.querySelector(".startPage");
+    const gamePage = document.querySelector(".gamepage");
     const startBtn = document.querySelector(".startBtn");
     const playerOne = document.querySelector("#playerOneName");
     const playerTwo = document.querySelector("#playerTwoName");
@@ -244,18 +245,31 @@ function ScreenController() {
     const playerTwoNameCard = document.querySelector(".playerTwoNameCard");
     const playerOneScoreCard = document.querySelector(".playerOneScore");
     const playerTwoScoreCard = document.querySelector(".playerTwoScore");
+    const resultDiv = document.querySelector(".result");
+
     let playerOneName;
     let playerTwoName;
     let game;
 
     const startGame = () => {
+        
+        
         playerOneName = playerOne.value;
         console.log(playerOne.value);
         playerTwoName = playerTwo.value;
 
+       
+    
+       if (playerOneName != "" && playerTwoName != "") {
+        
+        gamePage.classList.remove("hidden");
+        startPage.classList.remove("active");
+        startPage.classList.add("hidden");
+
         game = GameController(playerOneName, playerTwoName);
 
         updateScreen();
+       }
     }
 
     const playerTurnDiv = document.querySelector(".turn");
@@ -264,6 +278,8 @@ function ScreenController() {
     const continueBtn = document.querySelector(".continue");
 
     const restartGame = () => {
+        resultDiv.classList.toggle("hidden");
+        resultDiv.classList.toggle("active");
         game.refreshGame();
         updateScreen();
     }
@@ -309,6 +325,8 @@ function ScreenController() {
         const round = game.playRound(selectedRow, selectedColumn);
 
         if (round !== undefined) {
+            resultDiv.classList.toggle("hidden");
+            resultDiv.classList.toggle("active");
             result.textContent = round;
         }
     

@@ -8,20 +8,29 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <section class="startpage">
+    <section class="startPage active">
         <h1 class="header">TIC TAC TOE</h1>
-        <div class="form">
-            <div class="name">
-                <input type="text" name="playerOneName" id="playerOneName">
-                <label for="playerOneName">Enter Player X's Name</label>
-            </div>
-            <div class="versus">VS</div>
-            <div class="name">
-                <input type="text" name="playerTwoName" id="playerTwoName">
-                <label for="playerTwoName">Enter Player O's Name</label>
+        <section class="form">
+
+            <div class="profiles">
+                <div class="profile">
+                    <div class="image"><img src="./images/playerTwo.png" alt="Player 1 avatar"></div>
+                    <div class="name">
+                        <label for="playerOneName">Enter Player X's Name</label>
+                        <input type="text" name="playerOneName" id="playerOneName" required>
+                    </div>
+                </div>
+                <div class="versus">VS</div>
+                <div class="profile">
+                    <div class="image"><img src="./images/playerOne.png" alt="Player 2 avatar"></div>
+                    <div class="name">
+                        <label for="playerTwoName">Enter Player O's Name</label>
+                        <input type="text" name="playerTwoName" id="playerTwoName" required>
+                    </div>
+                </div>
             </div>
             <button class="startBtn">Start Game</button>
-        </div>
+        </section>
     </section>
     <section class="gamepage hidden">
 
@@ -30,14 +39,14 @@
                 <div class="playerOneNameCard card"></div>
                 <div class="playerOneScore score"></div>
             </div>
-            <div>VS</div>
-            <div class="player">
+            <div class="versus small">VS</div>
+            <div class="player secondOne">
                 <div class="playerTwoNameCard card"></div>
                 <div class="playerTwoScore score"></div>
             </div>
         </div>
         <div class="container">
-            <div class="result">
+            <div class="result hidden">
                 <p class="roundResult"></p>
                 <button class="continue">continue</button>
             </div>
